@@ -12,19 +12,21 @@ class Category extends React.Component {
   }
 
   componentDidMount() {
-    api.getCategories().then((data) => {
-      this.setState({
-        loading: false,
-        category: data,
-      });
-    });
+    this.getCategories();
+  }
+
+  async getCategories() { // resolvi transformar em uma função async/await, e rodar a function no componentDidMount
+    const categories = await api.getCategories().then((cats) => cats);
+    await this.setState({ loading: false, category: categories });
   }
 
   render() {
     const { category, loading } = this.state;
+
     if (loading) {
       return <p>Carregando...</p>;
     }
+
     return (
       <ul className="category">
         {category
