@@ -12,6 +12,10 @@ class Category extends React.Component {
   }
 
   componentDidMount() {
+    this.renderCategories();
+  }
+
+  renderCategories = () => {
     api.getCategories().then((data) => {
       this.setState({
         loading: false,
