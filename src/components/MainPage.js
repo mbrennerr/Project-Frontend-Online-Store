@@ -63,6 +63,7 @@ class MainPage extends React.Component {
           </Link>
           {search && <Products products={ products } />}
           {!itemSearched && warning}
+
         </div>
       </main>
     );
