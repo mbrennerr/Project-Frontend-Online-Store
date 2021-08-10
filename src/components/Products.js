@@ -5,23 +5,23 @@ class Products extends React.Component {
   render() {
     const { products } = this.props;
 
-    if (products) {
-      return (
-        <div>
+    // if (products === []) return (<p>Produto não encontrado!</p>);
 
-          {products.map(({ title, price, thumbnail, id }) => (
-            <div data-testid="product" key={ id }>
-              <img src={ thumbnail } alt={ title } />
-              <h2>{title}</h2>
-              <h3>{price}</h3>
-            </div>))}
-        </div>
-      );
-    }
+    return (
+      <div>
+
+        {products.map(({ title, price, thumbnail, id }) => (
+          <div data-testid="product" key={ id }>
+            <img src={ thumbnail } alt={ title } />
+            <h2>{title}</h2>
+            <h3>{price}</h3>
+          </div>))}
+      </div>
+    );
   }
 }
 
-Products.propsTypes = {
+Products.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -30,6 +30,10 @@ Products.propsTypes = {
       price: PropTypes.number,
     }),
   ),
+};
+
+Products.defaultProps = {
+  products: undefined,
 };
 
 export default Products;
