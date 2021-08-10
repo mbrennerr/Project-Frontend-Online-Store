@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+main {
+  display: flex;
+}
+
+main .categorias {
+  border: solid black;
+  width: 30%;
+}
+
+main .pesquisa {
+  border: solid black;
+  width: 70%;
+}
+
+main .pesquisa input {
+  margin: 10px;
+}
