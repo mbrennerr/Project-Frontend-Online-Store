@@ -11,16 +11,17 @@ class MainPage extends React.Component {
     this.state = {
       itemSearched: '',
       products: [],
+      search: false,
     };
   }
 
   fetchProducts = async () => {
-    const { itemSearched, products } = this.state;
+    const { itemSearched } = this.state;
     api.getProductsFromCategoryAndQuery('', itemSearched)
       .then(({ results }) => this.setState({
         products: results,
+        search: true,
       }));
-    console.log(products);
   };
 
   handleChange = (e) => {
@@ -30,8 +31,11 @@ class MainPage extends React.Component {
   }
 
   render() {
-    const { itemSearched, products } = this.state;
-
+    const { itemSearched, products, search } = this.state;
+    const warning = (
+      <p data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria
+      </p>);
     return (
       <main>
         <div className="categorias">
@@ -57,10 +61,9 @@ class MainPage extends React.Component {
           <Link to="/cart" data-testid="shopping-cart-button">
             Visitar carrinho
           </Link>
-          <Products products={ products } />
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
+          {search && <Products products={ products } />}
+          {!itemSearched && warning}
+
         </div>
       </main>
     );
