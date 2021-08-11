@@ -34,12 +34,13 @@ class Category extends React.Component {
       <ul className="category">
         {category
           .map(({ id, name }) => (
-            <li key={ id } data-testid="category">
+            <li key={ id }>
               <button // lista de botões
                 type="button"
                 key={ id }
                 id={ id }
                 onClick={ handleCategory }
+                data-testid="category"
               >
                 { name }
               </button>
