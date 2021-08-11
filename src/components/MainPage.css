@@ -20,3 +20,7 @@ main .pesquisa {
 main .pesquisa input {
   margin: 10px;
 }
+
+main .categorias .category li button {
+  text-decoration: none;
+}

@@ -33,10 +33,12 @@ class MainPage extends React.Component {
     });
   }
 
-  handleCategory = ({ target }) => {
+  handleCategory = async ({ target }) => {
     // função handle da categoria, troca o estado de category.
-    const { id } = target;
-    this.setState({ category: id }, () => this.fetchProducts());
+    const { value } = target;
+    this.setState({ category: value });
+    await this.fetchProducts();
+    // this.setState({ category: value }, () => this.fetchProducts);
   }
 
   render() {

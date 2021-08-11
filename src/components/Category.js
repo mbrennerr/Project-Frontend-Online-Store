@@ -38,7 +38,7 @@ class Category extends React.Component {
               <button // lista de botões
                 type="button"
                 key={ id }
-                id={ id }
+                value={ id }
                 onClick={ handleCategory }
                 data-testid="category"
               >
