@@ -8,38 +8,47 @@ import Products from './Products';
 class MainPage extends React.Component {
   constructor() {
     super();
+
     this.state = {
       itemSearched: '',
       products: [],
       search: false,
+      category: '',
     };
   }
 
   fetchProducts = async () => {
-    const { itemSearched } = this.state;
-    api.getProductsFromCategoryAndQuery('', itemSearched)
+    const { itemSearched, category } = this.state;
+    api.getProductsFromCategoryAndQuery(category, itemSearched)
       .then(({ results }) => this.setState({
         products: results,
         search: true,
       }));
   };
 
-  handleChange = (e) => {
+  handleChange = ({ target }) => {
+    const { value } = target;
     this.setState({
-      itemSearched: e.target.value,
+      itemSearched: value,
     });
+  }
+
+  handleCategory = ({ target }) => {
+    // função handle da categoria, troca o estado de category.
+    const { id } = target;
+    this.setState({ category: id });
   }
 
   render() {
     const { itemSearched, products, search } = this.state;
     const warning = (
       <p data-testid="home-initial-message">
-        Digite algum termo de pesquisa ou escolha uma categoria
+        Digite algum termo de pesquisa ou escolha uma categoria.
       </p>);
     return (
       <main>
         <div className="categorias">
-          <Category />
+          <Category handleCategory={ this.handleCategory } />
         </div>
         <div className="pesquisa">
           <label htmlFor="search">
@@ -69,4 +78,5 @@ class MainPage extends React.Component {
     );
   }
 }
+
 export default MainPage;

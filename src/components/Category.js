@@ -1,5 +1,6 @@
 // requisito 4;
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class Category extends React.Component {
@@ -15,13 +16,15 @@ class Category extends React.Component {
     this.getCategories();
   }
 
-  async getCategories() { // resolvi transformar em uma função async/await, e rodar a function no componentDidMount
+  async getCategories() {
+    // resolvi transformar em uma função async/await, e rodar a function no componentDidMount
     const categories = await api.getCategories().then((cats) => cats);
     await this.setState({ loading: false, category: categories });
   }
 
   render() {
     const { category, loading } = this.state;
+    const { handleCategory } = this.props; // props que recebe a função handle, para atualizar o estado do componente MainPage.
 
     if (loading) {
       return <p>Carregando...</p>;
@@ -30,10 +33,25 @@ class Category extends React.Component {
     return (
       <ul className="category">
         {category
-          .map(({ id, name }) => <li key={ id } data-testid="category">{ name }</li>)}
+          .map(({ id, name }) => (
+            <li key={ id } data-testid="category">
+              <button // lista de botões
+                type="button"
+                key={ id }
+                id={ id }
+                onClick={ handleCategory }
+              >
+                { name }
+              </button>
+            </li>
+          ))}
       </ul>
     );
   }
 }
+
+Category.propTypes = {
+  handleCategory: PropTypes.func.isRequired,
+};
 
 export default Category;
