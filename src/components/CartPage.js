@@ -21,10 +21,13 @@ class CartPage extends React.Component {
   }
 
   render() {
-    const { uniqueCarts } = this.state;
-    // const emptyElement = <p data-testid="shopping-cart-empty-message">
-    //  Seu carrinho está vazio
-    //  </p>
+    const { uniqueCarts, carts } = this.state;
+    const emptyElement = (
+      <p data-testid="shopping-cart-empty-message">
+        Seu carrinho está vazio
+      </p>
+    );
+    if (!uniqueCarts) return emptyElement;
     return (
       <div className="products-container">
         {uniqueCarts.map((product) => (
@@ -32,8 +35,17 @@ class CartPage extends React.Component {
             key={ product.id }
           >
             <img src={ product.thumbnail } alt={ product.title } />
-            <h2>{product.title}</h2>
-            <h2>Quantidade: </h2>
+            <h2
+              data-testid="shopping-cart-product-name"
+            >
+              {product.title}
+            </h2>
+            <h2
+              data-testid="shopping-cart-product-quantit"
+            >
+              Quantidade:
+              { carts.filter((element) => element.id === product.id).length }
+            </h2>
             <h3>{product.price}</h3>
           </div>))}
       </div>

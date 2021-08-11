@@ -37,6 +37,7 @@ class Products extends React.Component {
                 </div>
               </Link>
               <button
+                data-testid="product-add-to-cart"
                 onClick={ () => this.addToCart(product) }
                 type="button"
               >
