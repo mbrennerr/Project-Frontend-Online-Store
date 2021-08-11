@@ -10,18 +10,18 @@ class Products extends React.Component {
 
     return (
       <div>
-        {products.map(({ title, price, thumbnail, id }) => (
+        {products.map((product) => (
           <Link // alterei o componente e adicionei um Link envelopando toda a div
             data-testid="product-detail-link"
-            to={ `/${id}` }
-            key={ id }
+            to={ `/${product.id}` }
+            key={ product.id }
           >
             <div
               data-testid="product"
             >
-              <img src={ thumbnail } alt={ title } />
-              <h2>{title}</h2>
-              <h3>{price}</h3>
+              <img src={ product.thumbnail } alt={ product.title } />
+              <h2>{product.title}</h2>
+              <h3>{product.price}</h3>
             </div>
           </Link>))}
       </div>
