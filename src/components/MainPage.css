@@ -20,12 +20,11 @@ main .pesquisa {
 main .pesquisa input {
   margin: 10px;
 }
-
-main .categorias .category li button {
+button {
   background-color: white;
   border: none;
 }
 
-main .categorias .category li {
+li {
   list-style: none;
 }
