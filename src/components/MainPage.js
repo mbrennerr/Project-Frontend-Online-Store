@@ -36,7 +36,7 @@ class MainPage extends React.Component {
   handleCategory = ({ target }) => {
     // função handle da categoria, troca o estado de category.
     const { id } = target;
-    this.setState({ category: id });
+    this.setState({ category: id }, () => this.fetchProducts());
   }
 
   render() {
