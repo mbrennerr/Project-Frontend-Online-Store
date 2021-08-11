@@ -22,5 +22,10 @@ main .pesquisa input {
 }
 
 main .categorias .category li button {
-  text-decoration: none;
+  background-color: white;
+  border: none;
+}
+
+main .categorias .category li {
+  list-style: none;
 }
