@@ -2,29 +2,50 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+const carrinho = [];
+
 class Products extends React.Component {
+  addToCart = (product) => {
+    carrinho.push(product);
+    const unique = [...new Set(carrinho)]; // cria um array com elementos únicos
+    localStorage.setItem('itens', JSON.stringify(carrinho));
+    localStorage.setItem('noRepeatedItens', JSON.stringify(unique));
+  }
+
   render() {
     const { products } = this.props;
 
     if (products.length === 0) return <p>Produto não encontrado!</p>;
 
     return (
-      <div>
-        {products.map((product) => (
-          <Link // alterei o componente e adicionei um Link envelopando toda a div
-            data-testid="product-detail-link"
-            to={ `/${product.id}` }
-            key={ product.id }
-          >
+      <main>
+        <div className="products-container">
+          {products.map((product) => (
             <div
-              data-testid="product"
+              key={ product.id }
             >
-              <img src={ product.thumbnail } alt={ product.title } />
-              <h2>{product.title}</h2>
-              <h3>{product.price}</h3>
+              <Link // alterei o componente e adicionei um Link envelopando toda a div
+                data-testid="product-detail-link"
+                to={ `/${product.id}` }
+              >
+                <div
+                  data-testid="product"
+                >
+                  <img src={ product.thumbnail } alt={ product.title } />
+                  <h2>{product.title}</h2>
+                  <h3>{product.price}</h3>
+                </div>
+              </Link>
+              <button
+                onClick={ () => this.addToCart(product) }
+                type="button"
+              >
+                Adicionar item ao carrinho
+              </button>
             </div>
-          </Link>))}
-      </div>
+          ))}
+        </div>
+      </main>
     );
   }
 }

@@ -6,9 +6,7 @@ class ProductDetails extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      product: {
-        title: '',
-      },
+      product: {},
     };
   }
 
