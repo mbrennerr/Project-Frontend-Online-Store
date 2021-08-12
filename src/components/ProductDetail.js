@@ -16,13 +16,10 @@ class ProductDetails extends React.Component {
   }
 
   fetchProduct = async () => {
-    const { match: { params: { id } } } = this.props;
-    const { location:
-            { state: { product: { category_id: categoryId, title } } } } = this.props;
-
-    const product = await api.getProductsFromCategoryAndQuery(categoryId, title)
+    const { match: { params: { category_id: categoryId, id } } } = this.props;
+    const product = await api.getProductsFromCategoryAndQuery(categoryId, '')
       .then(({ results }) => results.find((prod) => prod.id === id));
-    await this.setState({
+    this.setState({
       loading: false,
       product,
     });
@@ -30,39 +27,32 @@ class ProductDetails extends React.Component {
 
   render() {
     const { loading } = this.state;
-    const { product } = this.props.location.state;
+    const { product } = this.state;
     if (loading) {
       return (
         <h1>loading...</h1>
       );
     }
 
-    const { product: { title,
-      thumbnail,
-      available_quantity: quantity,
-      accepts_mercadopago: mercadoPago,
-      price,
-      shipping: { free_shipping: freeShipping } } } = this.state;
-
     return (
       <div>
         <h1
           data-testid="product-detail-name"
         >
-          { title }
+          { product.title }
         </h1>
-        <img src={ thumbnail } alt={ title } />
+        <img src={ product.thumbnail } alt={ product.title } />
         <h2>
-          { quantity }
+          { product.quantity }
         </h2>
         <h2>
-          { price }
+          { product.price }
         </h2>
         <div>
-          { mercadoPago && <h2> Aceita Mercado Pago! </h2>}
+          { product.mercadoPago && <h2> Aceita Mercado Pago! </h2>}
         </div>
         <div>
-          {freeShipping && <h2>Frete grátis!</h2>}
+          {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>
       </div>
     );
@@ -73,14 +63,7 @@ ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
-    }),
-  }).isRequired,
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      product: PropTypes.shape({
-        title: PropTypes.string,
-        category_id: PropTypes.string,
-      }),
+      category_id: PropTypes.string,
     }),
   }).isRequired,
 };
