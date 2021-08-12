@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import * as Products from './Products';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -15,7 +16,18 @@ class ProductDetails extends React.Component {
     this.fetchProduct();
   }
 
-  /* fetchProduct = async () => {
+   addToCart = (product) => {
+     if (localStorage.getItem('carrinho') === null) { // verifica se ja existe item adicionado ao carrinho
+       Products.carrinho.itens.push(product); // adiciona o item no array carrinho do component Products
+       Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)]; // cria um array com elementos únicos
+       localStorage.setItem('carrinho', JSON.stringify(Products.carrinho));
+     } else {
+       Products.carrinho.push(product); // adiciona o item no array carrinho do component Products
+       Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
+     }
+   }
+
+   /* fetchProduct = async () => {
     const { match: { params: { id } } } = this.props;
     const product = await api.getProductsFromId(id);
     await this.setState({
@@ -46,24 +58,35 @@ class ProductDetails extends React.Component {
       accepts_mercadopago: mercadoPago,
       price,
       shipping: { free_shipping: freeShipping } } } = this.state;
-
+    const { product } = this.state;
     return (
-      <div className="product-detail">
-        <h1
-          data-testid="product-detail-name"
-        >
-          { title }
-        </h1>
-        <img src={ thumbnail } alt={ title } />
-        <h2>
-          { quantity }
-        </h2>
-        <h2>
-          { price }
-        </h2>
-        { mercadoPago && <h2> Aceita Mercado Pago! </h2>}
-        {freeShipping && <h2>Frete grátis!</h2>}
-      </div>
+      <main>
+        <div className="product-detail">
+          <h1
+            data-testid="product-detail-name"
+          >
+            {title}
+          </h1>
+          <img src={ thumbnail } alt={ title } />
+          <h2>
+            {quantity}
+          </h2>
+          <h2>
+            {price}
+          </h2>
+          {mercadoPago && <h2> Aceita Mercado Pago! </h2>}
+          {freeShipping && <h2>Frete grátis!</h2>}
+        </div>
+        <div>
+          <button
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.addToCart(product) }
+            type="button"
+          >
+            Adicionar item ao carrinho
+          </button>
+        </div>
+      </main>
     );
   }
 }

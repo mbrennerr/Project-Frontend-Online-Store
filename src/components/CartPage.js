@@ -4,18 +4,16 @@ class CartPage extends React.Component {
   constructor() {
     super();
 
-    const cartItens = JSON.parse(localStorage.getItem('itens'));
-    const uniqueCartItens = JSON.parse(localStorage.getItem('noRepeatedItens'));
-
-    if (localStorage) {
-      this.state = {
-        carts: cartItens,
-        uniqueCarts: uniqueCartItens,
-      };
-    } else {
+    if (localStorage.getItem('carrinho') === null) {
       this.state = {
         carts: [],
         uniqueCarts: [],
+      };
+    } else {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')); // criei essa constante que busca os itens adicionados no localStorage
+      this.state = {
+        carts: carrinho.itens,
+        uniqueCarts: carrinho.noRepeatedItens,
       };
     }
   }
@@ -27,7 +25,7 @@ class CartPage extends React.Component {
         Seu carrinho está vazio
       </p>
     );
-    if (!uniqueCarts) return emptyElement;
+    if (uniqueCarts.length === 0) return emptyElement; // modifiquei a condição pois o estado agora é um array
     return (
       <div className="products-container">
         {uniqueCarts.map((product) => (
@@ -44,7 +42,7 @@ class CartPage extends React.Component {
               data-testid="shopping-cart-product-quantity"
             >
               Quantidade:
-              { carts.filter((element) => element.id === product.id).length }
+              {carts.filter((element) => element.id === product.id).length}
             </h2>
             <h3>{product.price}</h3>
           </div>))}

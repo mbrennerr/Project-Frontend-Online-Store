@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const carrinho = [];
+export const carrinho = { // criei um objeto crrinho ao invés de um array, agora cada chave tem itens repetidos e únicos respectivamente
+  itens: [],
+  noRepeatedItens: [],
+}; // mudança de array para objeto;
 
 class Products extends React.Component {
   addToCart = (product) => {
-    carrinho.push(product);
-    const unique = [...new Set(carrinho)]; // cria um array com elementos únicos
-    localStorage.setItem('itens', JSON.stringify(carrinho));
-    localStorage.setItem('noRepeatedItens', JSON.stringify(unique));
+    carrinho.itens.push(product);
+    carrinho.noRepeatedItens = [...new Set(carrinho.itens)]; // cria um array com elementos únicos
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
 
   render() {
