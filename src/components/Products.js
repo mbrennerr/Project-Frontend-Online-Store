@@ -15,6 +15,7 @@ class Products extends React.Component {
   }
 
   render() {
+    const freeShipping = <p data-testid="free-shipping">Frete grátis!</p>;
     const { products } = this.props;
     if (products.length === 0) return <p>Produto não encontrado!</p>;
     return (
@@ -36,6 +37,7 @@ class Products extends React.Component {
                   <h3>{product.price}</h3>
                 </div>
               </Link>
+              {product.shipping.free_shipping && freeShipping}
               <button
                 data-testid="product-add-to-cart"
                 onClick={ () => this.addToCart(product) }

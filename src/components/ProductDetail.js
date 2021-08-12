@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import * as Products from './Products';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -49,15 +50,6 @@ class ProductDetails extends React.Component {
       );
     }
 
-    const { product } = this.state;
-    const freeShippingElement = (
-      <h2
-        data-testid="free-shipping"
-      >
-        Frete grátis!
-      </h2>
-    );
-
     return (
       <div>
         <h1
@@ -78,6 +70,13 @@ class ProductDetails extends React.Component {
         <div>
           {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => this.addToCart(product) }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }

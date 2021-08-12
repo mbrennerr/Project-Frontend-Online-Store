@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CartPage extends React.Component {
   constructor() {
@@ -10,9 +11,7 @@ class CartPage extends React.Component {
         uniqueCarts: [],
       };
     } else {
-      console.log(localStorage.getItem('carrinho'));
       const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      console.log(carrinho);
       // criei essa constante que busca os itens adicionados no localStorage
       this.state = {
         carts: carrinho.itens,
@@ -49,6 +48,7 @@ class CartPage extends React.Component {
             </h2>
             <h3>{product.price}</h3>
           </div>))}
+        <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }
