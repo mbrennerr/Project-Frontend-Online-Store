@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class ProductDetails extends React.Component {
@@ -16,7 +17,11 @@ class ProductDetails extends React.Component {
 
   fetchProduct = async () => {
     const { match: { params: { id } } } = this.props;
-    const product = await api.getProductsFromId(id);
+    const { location:
+            { state: { product: { category_id: categoryId, title } } } } = this.props;
+
+    const product = await api.getProductsFromCategoryAndQuery(categoryId, title)
+      .then(({ results }) => results.find((prod) => prod.id === id));
     await this.setState({
       loading: false,
       product,
@@ -25,7 +30,7 @@ class ProductDetails extends React.Component {
 
   render() {
     const { loading } = this.state;
-
+    const { product } = this.props.location.state;
     if (loading) {
       return (
         <h1>loading...</h1>
@@ -40,7 +45,7 @@ class ProductDetails extends React.Component {
       shipping: { free_shipping: freeShipping } } } = this.state;
 
     return (
-      <div className="product-detail">
+      <div>
         <h1
           data-testid="product-detail-name"
         >
@@ -53,15 +58,31 @@ class ProductDetails extends React.Component {
         <h2>
           { price }
         </h2>
-        <h2>
+        <div>
           { mercadoPago && <h2> Aceita Mercado Pago! </h2>}
-        </h2>
-        <h2>
+        </div>
+        <div>
           {freeShipping && <h2>Frete grátis!</h2>}
-        </h2>
+        </div>
       </div>
     );
   }
 }
+
+ProductDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      product: PropTypes.shape({
+        title: PropTypes.string,
+        category_id: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
+};
 
 export default ProductDetails;
