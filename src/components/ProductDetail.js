@@ -61,12 +61,8 @@ class ProductDetails extends React.Component {
         <h2>
           { price }
         </h2>
-        <h2>
-          { mercadoPago && <h2> Aceita Mercado Pago! </h2>}
-        </h2>
-        <h2>
-          {freeShipping && <h2>Frete grátis!</h2>}
-        </h2>
+        { mercadoPago && <h2> Aceita Mercado Pago! </h2>}
+        {freeShipping && <h2>Frete grátis!</h2>}
       </div>
     );
   }
