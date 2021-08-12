@@ -15,13 +15,20 @@ class ProductDetails extends React.Component {
     this.fetchProduct();
   }
 
-  fetchProduct = async () => {
+  /* fetchProduct = async () => {
     const { match: { params: { id } } } = this.props;
     const product = await api.getProductsFromId(id);
     await this.setState({
       loading: false,
       product,
     });
+  } */
+
+  fetchProduct = async () => {
+    const { match: { params: { id, category } } } = this.props;
+    const product = await api.getProductsFromCategoryAndQuery(category, '')
+      .then(({ results }) => results.find((item) => item.id === id));
+    await this.setState({ product, loading: false });
   }
 
   render() {
@@ -69,6 +76,7 @@ ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
+      category: PropTypes.string,
     }),
   }),
 };

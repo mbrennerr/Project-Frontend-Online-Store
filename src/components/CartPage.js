@@ -41,7 +41,7 @@ class CartPage extends React.Component {
               {product.title}
             </h2>
             <h2
-              data-testid="shopping-cart-product-quantit"
+              data-testid="shopping-cart-product-quantity"
             >
               Quantidade:
               { carts.filter((element) => element.id === product.id).length }

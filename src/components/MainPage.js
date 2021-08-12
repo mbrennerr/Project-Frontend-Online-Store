@@ -36,7 +36,7 @@ class MainPage extends React.Component {
   handleCategory = async ({ target }) => {
     // função handle da categoria, troca o estado de category.
     const { value } = target;
-    this.setState({ category: value });
+    await this.setState({ category: value });
     await this.fetchProducts();
     // this.setState({ category: value }, () => this.fetchProducts);
   }
@@ -47,6 +47,7 @@ class MainPage extends React.Component {
       <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>);
+
     return (
       <main>
         <div className="categorias">

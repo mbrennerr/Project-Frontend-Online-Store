@@ -12,7 +12,7 @@ function App() {
       <Route exact path="/cart" component={ CartPage } />
       <Route
         exact
-        path="/product/:id"
+        path="/product/:category/:id"
         render={ (props) => <ProductDetails { ...props } /> }
       />
     </BrowserRouter>
