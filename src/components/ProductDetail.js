@@ -48,16 +48,6 @@ class ProductDetails extends React.Component {
         <h1>loading...</h1>
       );
     }
-
-    const { product } = this.state;
-    const freeShippingElement = (
-      <h2
-        data-testid="free-shipping"
-      >
-        Frete grátis!
-      </h2>
-    );
-
     return (
       <div>
         <h1
