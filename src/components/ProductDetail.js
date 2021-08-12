@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
-import * as Products from './Products';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -31,37 +30,25 @@ class ProductDetails extends React.Component {
      }
    }
 
-   /* fetchProduct = async () => {
-    const { match: { params: { id } } } = this.props;
-    const product = await api.getProductsFromId(id);
-    await this.setState({
+  fetchProduct = async () => {
+    const { match: { params: { category_id: categoryId, id } } } = this.props;
+    const product = await api.getProductsFromCategoryAndQuery(categoryId, '')
+      .then(({ results }) => results.find((prod) => prod.id === id));
+    this.setState({
       loading: false,
       product,
     });
-  } */
-
-  fetchProduct = async () => {
-    const { match: { params: { id, category } } } = this.props;
-    const product = await api.getProductsFromCategoryAndQuery(category, '')
-      .then(({ results }) => results.find((item) => item.id === id));
-    await this.setState({ product, loading: false });
   }
 
   render() {
     const { loading } = this.state;
-
+    const { product } = this.state;
     if (loading) {
       return (
         <h1>loading...</h1>
       );
     }
 
-    const { product: { title,
-      thumbnail,
-      available_quantity: quantity,
-      accepts_mercadopago: mercadoPago,
-      price,
-      shipping: { free_shipping: freeShipping } } } = this.state;
     const { product } = this.state;
     const freeShippingElement = (
       <h2
@@ -70,34 +57,28 @@ class ProductDetails extends React.Component {
         Frete grátis!
       </h2>
     );
+
     return (
-      <main>
-        <div className="product-detail">
-          <h1
-            data-testid="product-detail-name"
-          >
-            {title}
-          </h1>
-          <img src={ thumbnail } alt={ title } />
-          <h2>
-            {quantity}
-          </h2>
-          <h2>
-            {price}
-          </h2>
-          {mercadoPago && <h2> Aceita Mercado Pago! </h2>}
-          {freeShipping && freeShippingElement }
+      <div>
+        <h1
+          data-testid="product-detail-name"
+        >
+          { product.title }
+        </h1>
+        <img src={ product.thumbnail } alt={ product.title } />
+        <h2>
+          { product.quantity }
+        </h2>
+        <h2>
+          { product.price }
+        </h2>
+        <div>
+          { product.mercadoPago && <h2> Aceita Mercado Pago! </h2>}
         </div>
         <div>
-          <button
-            data-testid="product-detail-add-to-cart"
-            onClick={ () => this.addToCart(product) }
-            type="button"
-          >
-            Adicionar item ao carrinho
-          </button>
+          {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>
-      </main>
+      </div>
     );
   }
 }
@@ -106,13 +87,9 @@ ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
-      category: PropTypes.string,
+      category_id: PropTypes.string,
     }),
-  }),
-};
-
-ProductDetails.defaultProps = {
-  match: {},
+  }).isRequired,
 };
 
 export default ProductDetails;
