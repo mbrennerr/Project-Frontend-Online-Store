@@ -16,9 +16,7 @@ class Products extends React.Component {
 
   render() {
     const { products } = this.props;
-
     if (products.length === 0) return <p>Produto não encontrado!</p>;
-
     return (
       <main>
         <div className="products-container">

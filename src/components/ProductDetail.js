@@ -19,11 +19,15 @@ class ProductDetails extends React.Component {
    addToCart = (product) => {
      if (localStorage.getItem('carrinho') === null) { // verifica se ja existe item adicionado ao carrinho
        Products.carrinho.itens.push(product); // adiciona o item no array carrinho do component Products
-       Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)]; // cria um array com elementos únicos
+       Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
        localStorage.setItem('carrinho', JSON.stringify(Products.carrinho));
      } else {
-       Products.carrinho.push(product); // adiciona o item no array carrinho do component Products
-       Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
+       Products.carrinho.itens.push(product);
+       if (!Products.carrinho.noRepeatedItens
+         .some((element) => element.id === product.id)) { // verifica se já existe o produto na chave carrinho.noRepeatedItens
+         Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
+       }
+       localStorage.setItem('carrinho', JSON.stringify(Products.carrinho)); // atualizo localStorage
      }
    }
 
@@ -59,6 +63,13 @@ class ProductDetails extends React.Component {
       price,
       shipping: { free_shipping: freeShipping } } } = this.state;
     const { product } = this.state;
+    const freeShippingElement = (
+      <h2
+        data-testid="free-shipping"
+      >
+        Frete grátis!
+      </h2>
+    );
     return (
       <main>
         <div className="product-detail">
@@ -75,7 +86,7 @@ class ProductDetails extends React.Component {
             {price}
           </h2>
           {mercadoPago && <h2> Aceita Mercado Pago! </h2>}
-          {freeShipping && <h2>Frete grátis!</h2>}
+          {freeShipping && freeShippingElement }
         </div>
         <div>
           <button

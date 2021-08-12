@@ -10,7 +10,10 @@ class CartPage extends React.Component {
         uniqueCarts: [],
       };
     } else {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')); // criei essa constante que busca os itens adicionados no localStorage
+      console.log(localStorage.getItem('carrinho'));
+      const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+      console.log(carrinho);
+      // criei essa constante que busca os itens adicionados no localStorage
       this.state = {
         carts: carrinho.itens,
         uniqueCarts: carrinho.noRepeatedItens,
