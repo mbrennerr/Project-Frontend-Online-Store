@@ -82,13 +82,6 @@ class ProductDetails extends React.Component {
           </Link>
           {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ () => this.addToCart(product) }
-        >
-          Adicionar ao carrinho
-        </button>
       </div>
     );
   }
