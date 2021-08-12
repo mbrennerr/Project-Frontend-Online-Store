@@ -10,15 +10,35 @@ class CartPage extends React.Component {
         uniqueCarts: [],
       };
     } else {
-      console.log(localStorage.getItem('carrinho'));
       const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      console.log(carrinho);
       // criei essa constante que busca os itens adicionados no localStorage
       this.state = {
         carts: carrinho.itens,
         uniqueCarts: carrinho.noRepeatedItens,
       };
     }
+  }
+
+  addItem = (product) => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const item = carrinho.itens.find((element) => element.id === product.id);
+    carrinho.itens.push(item);
+    this.setState({
+      carts: carrinho.itens,
+    });
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  }
+
+  removeItem = (product) => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const quantity = carrinho.itens.filter((element) => element.id === product.id).length;
+    const item = carrinho.itens.find((element) => element.id === product.id);
+    const index = carrinho.itens.indexOf(item);
+    if (quantity >= 2) carrinho.itens.splice(index, 1);
+    this.setState({
+      carts: carrinho.itens,
+    });
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
 
   render() {
@@ -48,6 +68,22 @@ class CartPage extends React.Component {
               {carts.filter((element) => element.id === product.id).length}
             </h2>
             <h3>{product.price}</h3>
+            <div className="buttons">
+              <button
+                data-testid="product-increase-quantity"
+                onClick={ () => this.addItem(product) }
+                type="button"
+              >
+                +
+              </button>
+              <button
+                data-testid="product-decrease-quantity"
+                onClick={ () => this.removeItem(product) }
+                type="button"
+              >
+                -
+              </button>
+            </div>
           </div>))}
       </div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import * as Products from './Products';
 
@@ -96,6 +97,9 @@ class ProductDetails extends React.Component {
           >
             Adicionar item ao carrinho
           </button>
+          <Link to="/cart" data-testid="shopping-cart-button">
+            Visitar carrinho
+          </Link>
         </div>
       </main>
     );
