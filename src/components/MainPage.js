@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Category from './Category';
 import './MainPage.css';
-import * as api from '../services/api';
 import Products from './Products';
+import * as api from '../services/api';
 
 class MainPage extends React.Component {
   constructor() {
