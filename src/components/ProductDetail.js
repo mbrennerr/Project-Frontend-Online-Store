@@ -15,6 +15,21 @@ class ProductDetails extends React.Component {
     this.fetchProduct();
   }
 
+   addToCart = (product) => {
+     if (localStorage.getItem('carrinho') === null) { // verifica se ja existe item adicionado ao carrinho
+       Products.carrinho.itens.push(product); // adiciona o item no array carrinho do component Products
+       Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
+       localStorage.setItem('carrinho', JSON.stringify(Products.carrinho));
+     } else {
+       Products.carrinho.itens.push(product);
+       if (!Products.carrinho.noRepeatedItens
+         .some((element) => element.id === product.id)) { // verifica se já existe o produto na chave carrinho.noRepeatedItens
+         Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
+       }
+       localStorage.setItem('carrinho', JSON.stringify(Products.carrinho)); // atualizo localStorage
+     }
+   }
+
   fetchProduct = async () => {
     const { match: { params: { category_id: categoryId, id } } } = this.props;
     const product = await api.getProductsFromCategoryAndQuery(categoryId, '')
@@ -33,6 +48,15 @@ class ProductDetails extends React.Component {
         <h1>loading...</h1>
       );
     }
+
+    const { product } = this.state;
+    const freeShippingElement = (
+      <h2
+        data-testid="free-shipping"
+      >
+        Frete grátis!
+      </h2>
+    );
 
     return (
       <div>
