@@ -41,6 +41,7 @@ class CartPage extends React.Component {
     });
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
+  // teste
 
   render() {
     const { uniqueCarts, carts } = this.state;
