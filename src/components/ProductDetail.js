@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import * as Products from './Products';
 
@@ -69,6 +70,16 @@ class ProductDetails extends React.Component {
           { product.mercadoPago && <h2> Aceita Mercado Pago! </h2>}
         </div>
         <div>
+          <button
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.addToCart(product) }
+            type="button"
+          >
+            Adicionar item ao carrinho
+          </button>
+          <Link to="/cart" data-testid="shopping-cart-button">
+            Visitar carrinho
+          </Link>
           {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>
         <button
