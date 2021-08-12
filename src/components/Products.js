@@ -26,7 +26,7 @@ class Products extends React.Component {
             >
               <Link // alterei o componente e adicionei um Link envelopando toda a div
                 data-testid="product-detail-link"
-                to={ `/${product.id}` }
+                to={ `product/${product.category_id}/${product.id}` }
               >
                 <div
                   data-testid="product"
