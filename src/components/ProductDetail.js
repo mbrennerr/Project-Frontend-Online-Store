@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import * as Products from './Products';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -49,16 +50,6 @@ class ProductDetails extends React.Component {
         <h1>loading...</h1>
       );
     }
-
-    const { product } = this.state;
-    const freeShippingElement = (
-      <h2
-        data-testid="free-shipping"
-      >
-        Frete grátis!
-      </h2>
-    );
-
     return (
       <div>
         <h1
