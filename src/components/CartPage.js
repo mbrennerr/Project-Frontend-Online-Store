@@ -28,6 +28,7 @@ class CartPage extends React.Component {
     });
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
+  // rrr
 
   removeItem = (product) => {
     const carrinho = JSON.parse(localStorage.getItem('carrinho'));
