@@ -15,38 +15,47 @@ class Products extends React.Component {
   }
 
   render() {
+    const freeShipping = <p data-testid="free-shipping">Frete grátis!</p>;
     const { products } = this.props;
     if (products.length === 0) return <p>Produto não encontrado!</p>;
     return (
-      <main>
-        <div className="products-container">
-          {products.map((product) => (
-            <div
-              key={ product.id }
+      <section className="products-container">
+        {products.map((product) => (
+          <div
+            className="product"
+            key={ product.id }
+          >
+            <Link // alterei o componente e adicionei um Link envelopando toda a div
+              data-testid="product-detail-link"
+              to={ `product/${product.category_id}/${product.id}` }
             >
-              <Link // alterei o componente e adicionei um Link envelopando toda a div
-                data-testid="product-detail-link"
-                to={ `product/${product.category_id}/${product.id}` }
+              <div
+                className="link-container"
+                data-testid="product"
               >
-                <div
-                  data-testid="product"
-                >
-                  <img src={ product.thumbnail } alt={ product.title } />
-                  <h2>{product.title}</h2>
-                  <h3>{product.price}</h3>
-                </div>
-              </Link>
-              <button
-                data-testid="product-add-to-cart"
-                onClick={ () => this.addToCart(product) }
-                type="button"
-              >
-                Adicionar item ao carrinho
-              </button>
-            </div>
-          ))}
-        </div>
-      </main>
+                <h2>
+                  {product.title}
+                </h2>
+                <img
+                  src={ product.thumbnail }
+                  alt={ product.title }
+                />
+                <h3>
+                  {`R$ ${product.price}`}
+                </h3>
+              </div>
+            </Link>
+            {product.shipping.free_shipping && freeShipping}
+            <button
+              data-testid="product-add-to-cart"
+              onClick={ () => this.addToCart(product) }
+              type="button"
+            >
+              Adicionar item ao carrinho
+            </button>
+          </div>
+        ))}
+      </section>
     );
   }
 }

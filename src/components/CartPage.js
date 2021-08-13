@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CartPage extends React.Component {
   constructor() {
@@ -10,9 +11,7 @@ class CartPage extends React.Component {
         uniqueCarts: [],
       };
     } else {
-      console.log(localStorage.getItem('carrinho'));
       const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      console.log(carrinho);
       // criei essa constante que busca os itens adicionados no localStorage
       this.state = {
         carts: carrinho.itens,
@@ -20,6 +19,30 @@ class CartPage extends React.Component {
       };
     }
   }
+
+  addItem = (product) => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const item = carrinho.itens.find((element) => element.id === product.id);
+    carrinho.itens.push(item);
+    this.setState({
+      carts: carrinho.itens,
+    });
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  }
+  // rrr
+
+  removeItem = (product) => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const quantity = carrinho.itens.filter((element) => element.id === product.id).length;
+    const item = carrinho.itens.find((element) => element.id === product.id);
+    const index = carrinho.itens.indexOf(item);
+    if (quantity >= 2) carrinho.itens.splice(index, 1);
+    this.setState({
+      carts: carrinho.itens,
+    });
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  }
+  // teste
 
   render() {
     const { uniqueCarts, carts } = this.state;
@@ -48,7 +71,24 @@ class CartPage extends React.Component {
               {carts.filter((element) => element.id === product.id).length}
             </h2>
             <h3>{product.price}</h3>
+            <div className="buttons">
+              <button
+                data-testid="product-increase-quantity"
+                onClick={ () => this.addItem(product) }
+                type="button"
+              >
+                +
+              </button>
+              <button
+                data-testid="product-decrease-quantity"
+                onClick={ () => this.removeItem(product) }
+                type="button"
+              >
+                -
+              </button>
+            </div>
           </div>))}
+        <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }

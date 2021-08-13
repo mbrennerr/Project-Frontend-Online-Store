@@ -16,30 +16,19 @@ class FormEvaluation extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e) => {
-    const { id } = this.props;
+  handleSubmit = () => {
+    const { id } = this.props; // recebemos o ID do produto para adicionar ao key do localStorage;
     const { comentario, email, nome } = this.state;
 
-    const reviewProduct = { comentario, email, nome };
+    const reviewProduct = { comentario, email, nome }; // 1- joga o state nesse obj.
 
     /*     console.log(reviewProduct); */
 
-    /* e.preventDefault(); */
-
-    if (localStorage[id]) {
-      console.log(localStorage[id]);
+    if (localStorage[id]) { // se já existir um localStorage esse ID de produto:
       const reviewArray = JSON.parse(localStorage[id]);
-      console.log(reviewArray);
-      /* const filteredReviews = reviewArray.filter((r) => {
-        if (r.email === reviewProduct.id) {
-          return false;
-        }
-        return true;
-      });
-      console.log(filteredReviews); */
-      localStorage[id] = JSON.stringify([...reviewArray, reviewProduct]);
-    } else {
-      localStorage[id] = JSON.stringify([reviewProduct]);
+      localStorage[id] = JSON.stringify([...reviewArray, reviewProduct]); // adiciona o state atual ao final do localStorage
+    } else { // se não exitir:
+      localStorage[id] = JSON.stringify([reviewProduct]); // adiciona o state atual ao local storage
     }
   }
 
