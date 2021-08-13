@@ -7,25 +7,125 @@ main {
   display: flex;
 }
 
-main .categorias {
-  border: solid black;
-  width: 30%;
+main .categories {
+  border: 0.5px solid darkblue;
+  width: 15%;
 }
 
-main .pesquisa {
-  border: solid black;
-  width: 70%;
+main .categories .category button:hover {
+  color: blue;
 }
 
-main .pesquisa input {
-  margin: 10px;
+main .categories ul {
+  margin: 10px 0 0 -35px;
 }
 
-button {
+main .categories .category button {
   background-color: white;
   border: none;
+  font-family: impact, sans-serif;
+  font-weight: 700;
+  text-align:left;
+  
+}
+
+main .main-page .empty-cart {
+  margin: 10px;
+  text-align: center;
+}
+
+main .main-page {
+  border: 0.5px solid darkblue;
+  width: 85%;
+}
+
+main .main-page input {
+  margin: 10px;
 }
 
 li {
   list-style: none;
+}
+
+.main-page .search {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.main-page .search input {
+  border-radius: 10px;
+  margin: 10px;
+  width: 700px;
+}  
+
+.main-page .search input:hover {
+  border: 2px  solid darkblue;
+}  
+
+.main-page .search button {
+  margin: 10px;
+  padding: 0;
+  width: 100px;
+}  
+
+.main-page .search a {
+  color: blue;
+  margin: 10px;
+  text-decoration: none;
+}  
+
+.main-page .search a:hover {
+  font-weight: 700;
+}  
+
+.main-page .products-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main .products-container .product {
+  align-items: center;
+  border: 1px solid darkslateblue;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 300px;
+  margin: 10px;
+  width: 250px;
+}
+
+main .products-container .product a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 200px;
+}
+
+main .products-container .product .link-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-page .products-container .product h2 {
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.main-page .products-container .product h3 {
+  margin: 10px;
+ }
+
+.main-page .products-container .product img {
+  height: 120px;
+  margin-top: 10px;
+}
+
+.main-page .products-container .product p {
+ font-weight: 700;
+ margin-bottom: 5px;
 }

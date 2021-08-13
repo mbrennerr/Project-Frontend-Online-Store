@@ -50,8 +50,6 @@ class ProductDetails extends React.Component {
         <h1>loading...</h1>
       );
     }
-    // aaa
-
     return (
       <div>
         <h1
