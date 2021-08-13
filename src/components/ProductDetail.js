@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import * as Products from './Products';
+import FormEvaluation from './FormEvaluation';
+import ReviewList from './ReviewList';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -31,8 +34,9 @@ class ProductDetails extends React.Component {
    }
 
   fetchProduct = async () => {
+    const search = localStorage.getItem('search');
     const { match: { params: { category_id: categoryId, id } } } = this.props;
-    const product = await api.getProductsFromCategoryAndQuery(categoryId, '')
+    const product = await api.getProductsFromCategoryAndQuery(categoryId, search)
       .then(({ results }) => results.find((prod) => prod.id === id));
     this.setState({
       loading: false,
@@ -49,7 +53,6 @@ class ProductDetails extends React.Component {
       );
     }
 
-    const { product } = this.state;
     const freeShippingElement = (
       <h2
         data-testid="free-shipping"
@@ -72,12 +75,12 @@ class ProductDetails extends React.Component {
         <h2>
           { product.price }
         </h2>
-        <div>
-          { product.mercadoPago && <h2> Aceita Mercado Pago! </h2>}
-        </div>
-        <div>
-          {product.freeShipping && <h2>Frete grátis!</h2>}
-        </div>
+
+        { product.mercadoPago && <h2> Aceita Mercado Pago! </h2>}
+
+        {product.freeShipping && <h2>Frete grátis!</h2>}
+        <FormEvaluation id={ product.id } />
+        <ReviewList id={ product.id } />
       </div>
     );
   }

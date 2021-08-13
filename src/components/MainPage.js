@@ -17,6 +17,12 @@ class MainPage extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    // antes do componente ser desmontado, salvamos o $QUERY que utilizamos;
+    const { itemSearched } = this.state;
+    localStorage.setItem('search', itemSearched);
+  }
+
   fetchProducts = async () => {
     const { itemSearched, category } = this.state;
     api.getProductsFromCategoryAndQuery(category, itemSearched)
