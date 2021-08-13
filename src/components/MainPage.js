@@ -47,36 +47,38 @@ class MainPage extends React.Component {
       <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>);
-
     return (
       <main>
-        <div className="categorias">
+        <div className="categories">
           <Category handleCategory={ this.handleCategory } />
         </div>
-        <div className="pesquisa">
-          <label htmlFor="search">
-            <input
-              type="text"
-              id="search"
-              data-testid="query-input"
-              value={ itemSearched }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            data-testid="query-button"
-            type="button"
-            onClick={ this.fetchProducts }
-          >
-            Pesquisar item
-          </button>
-          <Link to="/cart" data-testid="shopping-cart-button">
-            Visitar carrinho
-          </Link>
+        <section className="main-page">
+          <div className="empty-cart">
+            {!itemSearched && products.length < 1 && warning}
+          </div>
+          <div className="search">
+            <label htmlFor="search">
+              <input
+                type="text"
+                id="search"
+                data-testid="query-input"
+                value={ itemSearched }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <button
+              data-testid="query-button"
+              type="button"
+              onClick={ this.fetchProducts }
+            >
+              Pesquisar item
+            </button>
+            <Link to="/cart" data-testid="shopping-cart-button">
+              Visitar carrinho
+            </Link>
+          </div>
           {search && <Products products={ products } />}
-          {!itemSearched && warning}
-
-        </div>
+        </section>
       </main>
     );
   }
