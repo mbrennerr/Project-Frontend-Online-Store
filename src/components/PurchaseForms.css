@@ -9,7 +9,7 @@ form fieldset {
 }
 
 form fieldset input, form fieldset select {
-  margin: 10px
+  margin: 10px;
 }
 
 form button {

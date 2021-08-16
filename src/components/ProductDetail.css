@@ -5,22 +5,21 @@
 
 .product-container {
   align-items: center;
-  border:0.5px solid blue;
+  border: 0.5px solid blue;
   display: flex;
   flex-direction: column;
   height: 400px;
   justify-content: center;
   margin: auto;
   width: 300px;
-  
-} 
+}
 
 .product-container .button-cartLink-container {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
-    
+
 .product-container h1, .product-container h2 {
   font-size: 1.2em;
   margin: 5px;
@@ -34,7 +33,7 @@
 }
 
 .product-container .button-cartLink-container button {
-  margin: 10px 10px;
+  margin: 10px;
 }
 
 .product-container .button-cartLink-container a {
