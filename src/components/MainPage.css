@@ -18,6 +18,10 @@ main .categories {
   width: 100px;
 }
 
+.main-page .search a h2 {
+ text-align: center;
+}
+
 main .categories .category button {
   background-color: white;
   border: none;
@@ -54,7 +58,7 @@ li {
 
 .main-page .search {
   display: flex;
-  justify-content: space-around;
+  justify-content: baseline;
   margin: 10px;
 }
 

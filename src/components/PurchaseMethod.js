@@ -1,9 +1,12 @@
 import React from 'react';
+import './PurchaseMethod.css';
 
 class PurchaseMethod extends React.Component {
   render() {
     return (
-      <div>
+      <div
+        className="payment"
+      >
         <h2>Método de Pagamento</h2>
         <label htmlFor="boleto">
           <input type="radio" name="payment-method" id="boleto" />
@@ -21,6 +24,7 @@ class PurchaseMethod extends React.Component {
           <input type="radio" name="payment-method" id="elo" />
           Elo
         </label>
+        <button type="button">Finalizar Compra</button>
       </div>
     );
   }

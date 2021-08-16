@@ -26,8 +26,10 @@ class CartPage extends React.Component {
     const { itens } = carrinho;
     const item = itens.find((element) => element.id === product.id);
     itens.push(item);
-    this.setState({ carts: itens });
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    this.setState({
+      carts: itens,
+    });
   }
 
   removeItem = (product) => {

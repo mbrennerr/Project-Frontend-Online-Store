@@ -8,15 +8,19 @@ export const carrinho = { // criei um objeto crrinho ao invés de um array, agor
 }; // mudança de array para objeto;
 
 class Products extends React.Component {
-  addToCart = (product) => {
-    carrinho.itens.push(product);
+  addToCart = (product, callback) => {
+    const { itens } = carrinho;
+    itens.push(product);
     carrinho.noRepeatedItens = [...new Set(carrinho.itens)]; // cria um array com elementos únicos
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    this.setState({
+    });
+    callback();
   }
 
   render() {
     const freeShipping = <p data-testid="free-shipping">Frete grátis!</p>;
-    const { products } = this.props;
+    const { products, onClick, quantity } = this.props;
     if (products.length === 0) return <p>Produto não encontrado!</p>;
     return (
       <section className="products-container">
@@ -26,6 +30,7 @@ class Products extends React.Component {
             key={ product.id }
           >
             <Link // alterei o componente e adicionei um Link envelopando toda a div
+              quantity={ quantity }
               data-testid="product-detail-link"
               to={ `product/${product.category_id}/${product.id}` }
             >
@@ -48,7 +53,7 @@ class Products extends React.Component {
             {product.shipping.free_shipping && freeShipping}
             <button
               data-testid="product-add-to-cart"
-              onClick={ () => this.addToCart(product) }
+              onClick={ () => this.addToCart(product, onClick) }
               type="button"
             >
               Adicionar item ao carrinho
@@ -69,6 +74,8 @@ Products.propTypes = {
       price: PropTypes.number,
     }),
   ),
+  onClick: (PropTypes.func).isRequired,
+  quantity: (PropTypes.number).isRequired,
 };
 
 Products.defaultProps = {

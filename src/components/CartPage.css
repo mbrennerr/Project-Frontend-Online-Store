@@ -32,6 +32,9 @@
 
 .products .product-detail img {
   flex-grow: 1;
+  max-height: 200px;
+  max-width: 200px;
+
 }
 
 .products .product-detail h2, .products .product-detail h3, .buttons button {

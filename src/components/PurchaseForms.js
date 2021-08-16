@@ -1,4 +1,5 @@
 import React from 'react';
+import './PurchaseForms.css';
 
 class PurchaseForms extends React.Component {
   render() {
@@ -8,26 +9,33 @@ class PurchaseForms extends React.Component {
     return (
 
       <form>
-        <h2>Informações do comprador</h2>
-        <input type="text" data-testid="checkout-fullname" placeholder="Nome Completo" />
-        <input type="text" data-testid="checkout-cpf" placeholder="CPF" />
-        <input type="email" data-testid="checkout-email" placeholder="Email" />
-        <input type="text" data-testid="checkout-phone" placeholder="Telefone" />
-        <input type="text" data-testid="checkout-cep" placeholder="CEP" />
-        <input type="text" data-testid="checkout-address" placeholder="Endereço" />
-        <input type="text" placeholder="Complemento" />
-        <input type="text" placeholder="Número" />
-        <input type="text" placeholder="Cidade" />
-        <select name="" id="" placeholder="Estado">
-          {estates.map((estate) => (
-            <option
-              key={ estate }
-              value={ estate }
-            >
-              {estate}
-            </option>))}
-        </select>
-        <button type="button">Finalizar Compra</button>
+        <fieldset>
+          <legend>
+            Informações do comprador
+          </legend>
+          <input
+            type="text"
+            data-testid="checkout-fullname"
+            placeholder="Nome Completo"
+          />
+          <input type="text" data-testid="checkout-cpf" placeholder="CPF" />
+          <input type="email" data-testid="checkout-email" placeholder="Email" />
+          <input type="text" data-testid="checkout-phone" placeholder="Telefone" />
+          <input type="text" data-testid="checkout-cep" placeholder="CEP" />
+          <input type="text" data-testid="checkout-address" placeholder="Endereço" />
+          <input type="text" placeholder="Complemento" />
+          <input type="text" placeholder="Número" />
+          <input type="text" placeholder="Cidade" />
+          <select name="" id="" placeholder="Estado">
+            {estates.map((estate) => (
+              <option
+                key={ estate }
+                value={ estate }
+              >
+                {estate}
+              </option>))}
+          </select>
+        </fieldset>
       </form>
 
     );
