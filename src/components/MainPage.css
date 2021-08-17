@@ -19,7 +19,7 @@ main .categories {
 }
 
 .main-page .search a h2 {
-  text-align: center;
+  qtext-align: center;
 }
 
 main .categories .category button {
@@ -36,6 +36,7 @@ main .categories .category button:hover {
 
 main .categories ul {
   margin: 10px 0 0 -35px;
+  text-align:left;
 }
 
 main .main-page .empty-cart {
