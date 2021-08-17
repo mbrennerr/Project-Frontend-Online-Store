@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import * as Products from './Products';
+import FormEvaluation from './FormEvaluation';
+import ReviewList from './ReviewList';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -33,8 +35,9 @@ class ProductDetails extends React.Component {
    }
 
   fetchProduct = async () => {
+    const search = localStorage.getItem('search');
     const { match: { params: { category_id: categoryId, id } } } = this.props;
-    const product = await api.getProductsFromCategoryAndQuery(categoryId, '')
+    const product = await api.getProductsFromCategoryAndQuery(categoryId, search)
       .then(({ results }) => results.find((prod) => prod.id === id));
     this.setState({
       loading: false,
@@ -80,6 +83,8 @@ class ProductDetails extends React.Component {
           </Link>
           {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>
+        <FormEvaluation id={ product.id } />
+        <ReviewList id={ product.id } />
       </div>
     );
   }

@@ -26,7 +26,6 @@ main .categories .category button {
   font-family: impact, sans-serif;
   font-weight: 700;
   text-align:left;
-  
 }
 
 main .main-page .empty-cart {
@@ -57,11 +56,11 @@ li {
   border-radius: 10px;
   margin: 10px;
   width: 700px;
-}  
+}
 
 .main-page .search input:hover {
   border: 2px  solid darkblue;
-}  
+}
 
 .main-page .search button {
   margin: 10px;
@@ -73,11 +72,11 @@ li {
   color: blue;
   margin: 10px;
   text-decoration: none;
-}  
+}
 
 .main-page .search a:hover {
   font-weight: 700;
-}  
+}
 
 .main-page .products-container {
   display: flex;
@@ -126,6 +125,6 @@ main .products-container .product .link-container {
 }
 
 .main-page .products-container .product p {
- font-weight: 700;
- margin-bottom: 5px;
+  font-weight: 700;
+  margin-bottom: 5px;
 }
