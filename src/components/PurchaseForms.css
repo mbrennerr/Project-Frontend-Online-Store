@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+form fieldset {
+  margin: auto;
+  max-width: 700px;
+}
+
+form fieldset input, form fieldset select {
+  margin: 10px;
+}
+
+form button {
+  margin: 10px auto;
+  text-align: center;
+}
+

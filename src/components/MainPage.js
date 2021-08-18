@@ -17,6 +17,10 @@ class MainPage extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.cartItens();
+  }
+
   componentWillUnmount() {
     // antes do componente ser desmontado, salvamos o $QUERY que utilizamos;
     const { itemSearched } = this.state;
@@ -47,8 +51,18 @@ class MainPage extends React.Component {
     // this.setState({ category: value }, () => this.fetchProducts);
   }
 
+  cartItens = () => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    if (carrinho) {
+      const { itens } = carrinho;
+      this.setState({ quantity: itens.length });
+    } else {
+      this.setState({ quantity: 0 });
+    }
+  }
+
   render() {
-    const { itemSearched, products, search } = this.state;
+    const { itemSearched, products, search, quantity } = this.state;
     const warning = (
       <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
@@ -81,9 +95,18 @@ class MainPage extends React.Component {
             </button>
             <Link to="/cart" data-testid="shopping-cart-button">
               Visitar carrinho
+              <h2
+                data-testid="shopping-cart-size"
+              >
+                { quantity }
+              </h2>
             </Link>
           </div>
-          {search && <Products products={ products } />}
+          {search && <Products
+            quantity={ quantity }
+            onClick={ this.cartItens }
+            products={ products }
+          />}
         </section>
       </main>
     );

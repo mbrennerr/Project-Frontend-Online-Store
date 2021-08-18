@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import './App.css';
-import ProductDetails from './components/ProductDetail';
+import ProductDetail from './components/ProductDetail';
 import PurchasePage from './components/PurchasePage';
 import CartPage from './components/CartPage';
 
@@ -15,7 +15,7 @@ function App() {
       <Route
         exact
         path="/product/:category_id/:id"
-        render={ (props) => <ProductDetails { ...props } /> }
+        render={ (props) => <ProductDetail { ...props } /> }
       />
     </BrowserRouter>
   );

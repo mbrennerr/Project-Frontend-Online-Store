@@ -1,48 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './CartPage.css';
 
 class CartPage extends React.Component {
   constructor() {
     super();
-
-    if (localStorage.getItem('carrinho') === null) {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    if (carrinho) {
+      const { itens, noRepeatedItens } = carrinho;
+      // criei essa constante que busca os itens adicionados no localStorage
+      this.state = {
+        carts: itens,
+        uniqueCarts: noRepeatedItens,
+      };
+    } else {
       this.state = {
         carts: [],
         uniqueCarts: [],
-      };
-    } else {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      // criei essa constante que busca os itens adicionados no localStorage
-      this.state = {
-        carts: carrinho.itens,
-        uniqueCarts: carrinho.noRepeatedItens,
       };
     }
   }
 
   addItem = (product) => {
     const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-    const item = carrinho.itens.find((element) => element.id === product.id);
-    carrinho.itens.push(item);
-    this.setState({
-      carts: carrinho.itens,
-    });
+    const { itens } = carrinho;
+    const item = itens.find((element) => element.id === product.id);
+    itens.push(item);
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    this.setState({
+      carts: itens,
+    });
   }
-  // rrr
 
   removeItem = (product) => {
     const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-    const quantity = carrinho.itens.filter((element) => element.id === product.id).length;
-    const item = carrinho.itens.find((element) => element.id === product.id);
-    const index = carrinho.itens.indexOf(item);
-    if (quantity >= 2) carrinho.itens.splice(index, 1);
-    this.setState({
-      carts: carrinho.itens,
-    });
+    const { itens } = carrinho;
+    const item = itens.find((element) => element.id === product.id);
+    const index = itens.indexOf(item);
+    itens.splice(index, 1);
+    this.setState({ carts: itens });
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
-  // teste
 
   render() {
     const { uniqueCarts, carts } = this.state;
@@ -53,9 +51,10 @@ class CartPage extends React.Component {
     );
     if (uniqueCarts.length === 0) return emptyElement; // modifiquei a condição pois o estado agora é um array
     return (
-      <div className="products-container">
+      <div className="products">
         {uniqueCarts.map((product) => (
           <div
+            className="product-detail"
             key={ product.id }
           >
             <img src={ product.thumbnail } alt={ product.title } />
@@ -70,12 +69,15 @@ class CartPage extends React.Component {
               Quantidade:
               {carts.filter((element) => element.id === product.id).length}
             </h2>
-            <h3>{product.price}</h3>
+            <h3>{`R$${product.price}`}</h3>
             <div className="buttons">
               <button
                 data-testid="product-increase-quantity"
                 onClick={ () => this.addItem(product) }
                 type="button"
+                disabled={ carts
+                  .filter((el) => el.id === product.id).length
+                  >= product.available_quantity }
               >
                 +
               </button>
@@ -83,6 +85,8 @@ class CartPage extends React.Component {
                 data-testid="product-decrease-quantity"
                 onClick={ () => this.removeItem(product) }
                 type="button"
+                disabled={ carts
+                  .filter((el) => el.id === product.id).length === 1 }
               >
                 -
               </button>

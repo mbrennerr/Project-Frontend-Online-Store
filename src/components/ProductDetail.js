@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProductDetail.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
@@ -17,21 +18,31 @@ class ProductDetails extends React.Component {
 
   componentDidMount() {
     this.fetchProduct();
+    this.ckeckLocalStorage();
+  }
+
+  ckeckLocalStorage = () => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    if (carrinho) {
+      const { itens } = carrinho;
+      this.setState({
+        quantity: itens.length,
+      });
+    } else {
+      this.setState({
+        quantity: 0,
+      });
+    }
   }
 
    addToCart = (product) => {
-     if (localStorage.getItem('carrinho') === null) { // verifica se ja existe item adicionado ao carrinho
-       Products.carrinho.itens.push(product); // adiciona o item no array carrinho do component Products
+     Products.carrinho.itens.push(product);
+     if (Products.carrinho.noRepeatedItens
+       .every((element) => element.id !== product.id)) { // verifica se já existe o produto na chave carrinho.noRepeatedItens
        Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
-       localStorage.setItem('carrinho', JSON.stringify(Products.carrinho));
-     } else {
-       Products.carrinho.itens.push(product);
-       if (!Products.carrinho.noRepeatedItens
-         .some((element) => element.id === product.id)) { // verifica se já existe o produto na chave carrinho.noRepeatedItens
-         Products.carrinho.noRepeatedItens = [...new Set(Products.carrinho.itens)];
-       }
-       localStorage.setItem('carrinho', JSON.stringify(Products.carrinho)); // atualizo localStorage
      }
+     localStorage.setItem('carrinho', JSON.stringify(Products.carrinho)); // atualizo localStorage
+     this.setState((prevState) => ({ quantity: prevState.quantity + 1 }));
    }
 
   fetchProduct = async () => {
@@ -46,15 +57,16 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { loading } = this.state;
-    const { product } = this.state;
+    const { product, loading, quantity } = this.state;
     if (loading) {
       return (
         <h1>loading...</h1>
       );
     }
     return (
-      <div>
+      <div
+        className="product-container"
+      >
         <h1
           data-testid="product-detail-name"
         >
@@ -65,12 +77,15 @@ class ProductDetails extends React.Component {
           { product.quantity }
         </h2>
         <h2>
+          R$
           { product.price }
         </h2>
         <div>
           { product.mercadoPago && <h2> Aceita Mercado Pago! </h2>}
         </div>
-        <div>
+        <div
+          className="button-cartLink-container"
+        >
           <button
             data-testid="product-detail-add-to-cart"
             onClick={ () => this.addToCart(product) }
@@ -80,6 +95,11 @@ class ProductDetails extends React.Component {
           </button>
           <Link to="/cart" data-testid="shopping-cart-button">
             Visitar carrinho
+            <h2
+              data-testid="shopping-cart-size"
+            >
+              { quantity }
+            </h2>
           </Link>
           {product.freeShipping && <h2>Frete grátis!</h2>}
         </div>

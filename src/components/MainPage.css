@@ -12,19 +12,30 @@ main .categories {
   width: 15%;
 }
 
+.main-page .search button {
+  margin: 10px;
+  padding: 0;
+  width: 100px;
+}
+
+.main-page .search a h2 {
+  qtext-align: center;
+}
+
+main .categories .category button {
+  background-color: white;
+  border: none;
+  font-family: impact , sans-serif;
+  font-weight: 700;
+  text-align: left;
+}
+
 main .categories .category button:hover {
   color: blue;
 }
 
 main .categories ul {
   margin: 10px 0 0 -35px;
-}
-
-main .categories .category button {
-  background-color: white;
-  border: none;
-  font-family: impact, sans-serif;
-  font-weight: 700;
   text-align:left;
 }
 
@@ -48,30 +59,32 @@ li {
 
 .main-page .search {
   display: flex;
-  justify-content: space-around;
+  justify-content: baseline;
   margin: 10px;
 }
 
 .main-page .search input {
   border-radius: 10px;
   margin: 10px;
-  width: 700px;
+  width: 60vw;
 }
 
 .main-page .search input:hover {
   border: 2px  solid darkblue;
 }
 
-.main-page .search button {
-  margin: 10px;
-  padding: 0;
-  width: 100px;
-}  
-
 .main-page .search a {
   color: blue;
   margin: 10px;
   text-decoration: none;
+}
+
+main .products-container .product a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-around;
 }
 
 .main-page .search a:hover {
@@ -89,18 +102,10 @@ main .products-container .product {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   height: 300px;
+  justify-content: space-around;
   margin: 10px;
   width: 250px;
-}
-
-main .products-container .product a {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 200px;
 }
 
 main .products-container .product .link-container {
@@ -111,13 +116,13 @@ main .products-container .product .link-container {
 
 .main-page .products-container .product h2 {
   font-size: 15px;
-  text-decoration: none;
   text-align: center;
+  text-decoration: none;
 }
 
 .main-page .products-container .product h3 {
   margin: 10px;
- }
+}
 
 .main-page .products-container .product img {
   height: 120px;

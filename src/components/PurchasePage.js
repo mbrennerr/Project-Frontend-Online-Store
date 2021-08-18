@@ -1,4 +1,5 @@
 import React from 'react';
+import './PurchasePage.css';
 import PurchaseMethod from './PurchaseMethod';
 import PurchaseForms from './PurchaseForms';
 
@@ -9,10 +10,15 @@ class PurchasePage extends React.Component {
       const { itens } = JSON.parse(localStorage.getItem('carrinho'));
       return (
         <section className="container-checkout">
-          <div>
-            <h2>Revise seus produtos</h2>
+          <h2>Revise seus produtos</h2>
+          <div
+            className="products-list"
+          >
             {itens.map((item, i) => (
-              <div key={ i }>
+              <div
+                className="product"
+                key={ i }
+              >
                 <img src={ item.thumbnail } alt={ item.title } />
                 <p>
                   R$
@@ -20,10 +26,14 @@ class PurchasePage extends React.Component {
                 </p>
               </div>
             ))}
+          </div>
+          <div
+            className="total-price"
+          >
             <h2>
-              Total:
+              Total: R$
               {' '}
-              {itens.reduce((acc, item) => acc + Number(item.price), 0)}
+              {itens.reduce((acc, item) => acc + Number(item.price), 0).toFixed(2)}
             </h2>
           </div>
           <PurchaseForms />
